@@ -1,0 +1,257 @@
+<HTML><HEAD>
+<TITLE>1990 US Census Data</TITLE>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<H1>1990 US Census Data</H1>
+
+<h2>Data Type</h2>
+<p>Multivariate</p>
+
+<H2> Abstract</H2>
+<p>
+The USCensus1990 data set is a discretized version of the
+<a href="USCensus1990raw.html">USCensus1990raw</a>
+ data set. Many of the less useful attributes in the
+original data set have been dropped, the few continuous variables have
+been discretized and the few discrete variables that have a large
+number of possible values have been collapsed to have fewer possible
+values.
+</p>
+<H2>Sources</H2>
+<p>
+<p>
+The USCensus1990raw data set was obtained from the (U.S. Department of
+Commerce) Census Bureau website using the Data Extraction System. This
+system can be found at
+<a href="http://www.census.gov/DES/www/des.html">http://www.census.gov/DES/www/d
+es.html.</a>
+</p>
+
+<H2>Donor of database</H2>
+<p>
+<A href="mailto:meek@microsoft.com">Chris Meek</a>
+</p>
+<p>
+Microsoft
+</p>
+<p>
+<A href="mailto:thiesson@microsoft.com">Bo Thiesson</a>
+</p>
+<p>
+Microsoft
+</p>
+<p>
+<A href="mailto:heckerma@microsoft.com">David Heckerman</a>
+</p>
+<p>
+Microsoft
+</p>
+
+<H2>Data Characteristics</H2>
+<p>
+The data was collected as part of the 1990 census.
+</p>
+<p>
+There are 68 categorical attributes. This data set was derived from
+the USCensus1990raw data set. The attributes are listed in the file
+USCensus1990.attributes.txt (repeated below) and the coding for the
+values is described below.  Many of the less useful attributes in the
+original data set have been dropped, the few continuous variables have
+been discretized and the few discrete variables that have a large
+number of possible values have been collapsed to have fewer possible
+values.
+</p>
+<p>
+   More specifically the USCensus1990 data set was obtained from
+   the USCensus1990raw data set by the following sequence of operations;
+</p>
+<ul>
+<li>
+    Randomization: The order of the cases in the original
+      USCensus1990raw data set were randomly permuted.
+</li>
+
+<li>
+    Selection of attributes: The 68 attributes included in the data
+      set are given below. In the USCensus1990 data set we have
+      added a single letter prefix to the original name. We add the
+      letter 'i' to indicate that the original attribute values are
+      used and 'd' to indicate that original attribute values for each
+      case have been mapped to new values (the precise mapping is
+      described below).
+
+<pre>
+      --------------------------------------------------------------
+        Old Variable        New Variable
+      --------------------------------------------------------------
+        Age         dAge
+        Ancstry1        dAncstry1
+        Ancstry2        dAncstry2
+        Avail           iAvail
+        Citizen         iCitizen
+        Class           iClass
+        Depart          dDepart
+        Disabl1         iDisabl1
+        Disabl2         iDisabl2
+        English         iEnglish
+        Feb55           iFeb55
+        Fertil          iFertil
+        Hispanic        dHispanic
+        Hour89          dHour89
+        Hours           dHours
+        Immigr          iImmigr
+        Income1         dIncome1
+        Income2         dIncome2
+        Income3         dIncome3
+        Income4         dIncome4
+        Income5         dIncome5
+        Income6         dIncome6
+        Income7         dIncome7
+        Income8         dIncome8
+        Industry        dIndustry
+        Korean          iKorean
+        Lang1           iLang1
+        Looking         iLooking
+        Marital         iMarital
+        May75880        iMay75880
+        Means           iMeans
+        Military        iMilitary
+        Mobility        iMobility
+        Mobillim        iMobillim
+        Occup           dOccup
+        Othrserv        iOthrserv
+        Perscare        iPerscare
+        POB         dPOB
+        Poverty         dPoverty
+        Pwgt1           dPwgt1
+        Ragechld        iRagechld
+        Rearning        dRearning
+        Relat1          iRelat1
+        Relat2          iRelat2
+        Remplpar        iRemplpar
+        Riders          iRiders
+        Rlabor          iRlabor
+        Rownchld        iRownchld
+        Rpincome        dRpincome
+        RPOB            iRPOB
+        Rrelchld        iRrelchld
+        Rspouse         iRspouse
+        Rvetserv        iRvetserv
+        School          iSchool
+        Sept80          iSept80
+        Sex         iSex
+        Subfam1         iSubfam1
+        Subfam2         iSubfam2
+        Tmpabsnt        iTmpabsnt
+        Travtime        dTravtime
+        Vietnam         iVietnam
+        Week89          dWeek89
+        Work89          iWork89
+        Worklwk         iWorklwk
+        WWII            iWWII
+        Yearsch         iYearsch
+        Yearwrk         iYearwrk
+        Yrsserv         dYrsserv
+</pre>
+</li>
+<li>
+    Mapping: In this step we map all of the old values for variables
+      with prefix 'd' to new values. The mappings for the variables
+      dAncstry1, dAncstry2, dHispanic, dIndustry, dOccup, dPOB were
+      designed to correspond to a natural coarsening of the original
+      values based on the information in the file coding.htm. The
+      remaining variables are continuous valued variables and the
+      mapping for these variables was chosen to make variables that
+      were fairly uniformly distributed across the states
+      (quantiles). The precise mappings are specified in the file
+      USCensus1990.mapping.sql. This file contains all of T-SQL
+      procedures used to map the variables. These procedures can be
+      used directly in SQLServer to map the original values or
+      translated to some other language.
+<pre>
+      --------------------------------------------------------------
+        Variable        Procedure
+      --------------------------------------------------------------
+        dAge            discAge
+        dAncstry1       discAncstry1
+        dAncstry2       discAncstry2
+        dHispanic       discHispanic
+        dHour89         discHour89
+        dHours          discHours
+        dIncome1        discIncome1
+        dIncome2        discIncome2to8
+        dIncome3        discIncome2to8
+        dIncome4        discIncome2to8
+        dIncome5        discIncome2to8
+        dIncome6        discIncome2to8
+        dIncome7        discIncome2to8
+        dIncome8        discIncome2to8
+        dIndustry       discIndustry
+        dOccup          discOccup
+        dPOB            discPOB
+        dPoverty        discPoverty
+        dPwgt1          discPwgt1
+        dRearning       discRearning
+        dRpincome       discRpincome
+        dTravtime       discTravtime
+        dWeek89         discWeek89
+        dYrsserv        discYrsserv
+</pre>
+</li>
+</ul>
+<h2>Other Relevant Information</h2>
+<p>
+Hierarchies of values are provided in the file
+<a href="USCensus1990raw.coding.htm">USCensus1990raw.coding.htm</a>
+ and the mapping functions used to transform
+the 
+<a href="USCensus1990raw.html">USCensus1990raw</a>
+to the USCensus1990 data sets are giving in the
+file 
+<a href="USCensus1990.mapping.sql">USCensus1990.mapping.sql.</a>
+</p>
+<h2>Data Format</h2>
+<p>
+The data is contained in a file called 
+<a href="USCensus1990.data.txt">USCensus1990.data.txt.</a>
+  The
+first row contains the list of attributes. The first attribute is a
+caseid and should be ignored during analysis. The data is comma
+delimited with one case per row.
+</p>
+
+<h2>References & Further Information</h2>
+<ul>
+<li>
+<A href="http://www.census.gov">
+The U.S. Department of Commerce Bureau of Census website
+</a>
+</li>
+<li>
+<A href="http://www.census.gov/DES/www/des.html">
+Data Extraction System
+</a>
+</li>
+<li>
+Meek, Thiesson, and Heckerman (2001), "The Learning Curve Method
+Applied to Clustering", to appear in The Journal of Machine Learning
+Research. 
+</li>
+<li>
+<a href="http://research.microsoft.com/scripts/pubs/view.asp?TR_ID=MSR-TR-2001-34">
+MSR-TR-2001-34
+</a>
+</li>
+</ul>
+<HR>
+<ADDRESS>
+<A href="http://kdd.ics.uci.edu/">The UCI KDD Archive</A><br>
+<a href="http://www.ics.uci.edu/">
+Information and Computer Science</a><BR>
+<a href="http://www.uci.edu/">University of California, Irvine</a><br>
+Irvine, CA 92697-3425
+</ADDRESS>
+Last modified: 6 Nov 2001
+</BODY></HTML>
+
